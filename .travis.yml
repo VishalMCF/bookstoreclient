@@ -1,10 +1,17 @@
 langauage: node_js
+
 node_js:
   - 13.1.0
+
 script:
   - "npm run build"
   - "npm run test:nowatch"
 
+before_deploy:
+  - rvm requirements
+  - rvm install 2.6
+  - rvm $(travis_internal_ruby) --fuzzy do ruby -S gem install faraday -v 1.8.0
+
 deploy:
   provide: heroku
-  api_key: $HEROKU_TOKEN
+  api_key: db0780ea-904f-413d-a534-4665cdce62c3
